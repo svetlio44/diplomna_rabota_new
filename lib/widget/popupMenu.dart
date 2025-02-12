@@ -7,12 +7,11 @@
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/find_friends.dart';
+import 'package:diplomna_rabota_new/pages/find_partners.dart';
 import 'package:diplomna_rabota_new/pages/grid_two.dart';
-import 'package:diplomna_rabota_new/pages/live_tv.dart';
 import 'package:diplomna_rabota_new/pages/notifications.dart';
 import 'package:diplomna_rabota_new/pages/popular.dart';
-import 'package:diplomna_rabota_new/pages/post_detail.dart';
+import 'package:diplomna_rabota_new/pages/order_detail.dart';
 import 'package:diplomna_rabota_new/pages/search.dart';
 import 'package:diplomna_rabota_new/pages/settings.dart';
 
@@ -29,13 +28,13 @@ class popUpMenu extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => Search()),
                   ),
                 )),
-        PopupMenuItem(
-            child: Text('Live TV'),
-            onTap: () => Future(
-                  () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => LiveTV()),
-                  ),
-                )),
+        // PopupMenuItem(
+        //     child: Text('Live TV'),
+        //     onTap: () => Future(
+        //           () => Navigator.of(context).push(
+        //             MaterialPageRoute(builder: (_) => LiveTV()),
+        //           ),
+        //         )),
         PopupMenuItem(
             child: Text('Popular'),
             onTap: () => Future(

@@ -7,7 +7,7 @@
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/live_tv.dart';
+// import 'package:diplomna_rabota_new/pages/live_tv.dart';
 import 'package:diplomna_rabota_new/pages/welcome.dart';
 import '../components/styles.dart';
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       initialRoute: Welcome.id,
       routes: {
         Welcome.id: (context) => const Welcome(),
-        LiveTV.id: (context) => const LiveTV(),
+        // LiveTV.id: (context) => const LiveTV(),
       },
     );
   }

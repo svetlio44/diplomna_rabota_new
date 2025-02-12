@@ -9,7 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/camera.dart';
 import 'package:diplomna_rabota_new/pages/comment.dart';
-import 'package:diplomna_rabota_new/pages/story.dart';
+// import 'package:diplomna_rabota_new/pages/story.dart';
 import 'package:diplomna_rabota_new/widget/popupMenu.dart';
 import '../components/styles.dart';
 
@@ -147,9 +147,9 @@ class _HomeState extends State<Home> {
   Widget _buildStories(context, e) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProfileStory()));
-      },
+      //   Navigator.push(
+      //       // context, MaterialPageRoute(builder: (context) => ProfileStory()));
+      // },
       child: Stack(
         children: [
           Container(
@@ -177,8 +177,8 @@ class _HomeState extends State<Home> {
                     ),
                     border: Border.all(width: 1, color: Colors.white)),
               )),
-        ],
-      ),
+        ];
+      );
     );
   }
 

@@ -7,7 +7,7 @@
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/create_post.dart';
+import 'package:diplomna_rabota_new/pages/create_order.dart';
 import '../components/styles.dart';
 
 class MyProfile extends StatefulWidget {

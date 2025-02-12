@@ -99,104 +99,104 @@ class _ChatState extends State<Chat> {
           children: messages.map((Item msg) {
             return msg.side == 'left'
                 ? Container(
-                    margin: const EdgeInsets.only(bottom: 16),
-                    width: MediaQuery.of(context).size.width - 120,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/35.jpg'),
-                          radius: 14,
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                padding: const EdgeInsets.all(16),
-                                decoration: const BoxDecoration(
-                                    color: backgroundColor,
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(16),
-                                      topLeft: Radius.circular(16),
-                                      bottomRight: Radius.circular(16),
-                                    )),
-                                child: Text(
-                                  msg.msg,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 16, top: 6),
-                                child: smallText('10.34pm'),
-                              )
-                            ],
+              margin: const EdgeInsets.only(bottom: 16),
+              width: MediaQuery.of(context).size.width - 120,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/35.jpg'),
+                    radius: 14,
+                  ),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                              color: backgroundColor,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(16),
+                                topLeft: Radius.circular(16),
+                                bottomRight: Radius.circular(16),
+                              )),
+                          child: Text(
+                            msg.msg,
+                            style: const TextStyle(fontSize: 14),
                           ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 16, top: 6),
+                          child: smallText('10.34pm'),
                         )
                       ],
                     ),
                   )
+                ],
+              ),
+            )
                 : Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        width: MediaQuery.of(context).size.width - 120,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: <Widget>[
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        padding: const EdgeInsets.all(16),
-                                        decoration: const BoxDecoration(
-                                          color: appColorBtn,
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(16),
-                                            topLeft: Radius.circular(16),
-                                            bottomLeft: Radius.circular(16),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          msg.msg,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                      Container(
-                                          padding: EdgeInsets.only(
-                                              right: 10, top: 6),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              smallText('10.34pm'),
-                                              SizedBox(width: 4),
-                                              Icon(
-                                                Icons.check,
-                                                size: 16,
-                                                color: appColorBtn,
-                                              )
-                                            ],
-                                          ))
-                                    ],
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  width: MediaQuery.of(context).size.width - 120,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  margin:
+                                  const EdgeInsets.only(right: 10),
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: const BoxDecoration(
+                                    color: appColorBtn,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(16),
+                                      topLeft: Radius.circular(16),
+                                      bottomLeft: Radius.circular(16),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    msg.msg,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14),
                                   ),
                                 ),
+                                Container(
+                                    padding: EdgeInsets.only(
+                                        right: 10, top: 6),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.end,
+                                      children: [
+                                        smallText('10.34pm'),
+                                        SizedBox(width: 4),
+                                        Icon(
+                                          Icons.check,
+                                          size: 16,
+                                          color: appColorBtn,
+                                        )
+                                      ],
+                                    ))
                               ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
-                  );
+                  ),
+                ),
+              ],
+            );
           }).toList(),
         ));
   }
