@@ -34,18 +34,18 @@ class _HomeState extends State<Home> {
     Item('#lorem'),
   ];
 
-  List<Story> storyList = <Story>[
-    Story('assets/images/31.jpg'),
-    Story('assets/images/32.jpg'),
-    Story('assets/images/33.png'),
-    Story('assets/images/34.jpg'),
-    Story('assets/images/35.jpg'),
-    Story('assets/images/36.jpg'),
-    Story('assets/images/37.jpg'),
-    Story('assets/images/38.jpg'),
-    Story('assets/images/39.jpg'),
-    Story('assets/images/40.jpg'),
-  ];
+  // List<Story> storyList = <Story>[
+  //   Story('assets/images/31.jpg'),
+  //   Story('assets/images/32.jpg'),
+  //   Story('assets/images/33.png'),
+  //   Story('assets/images/34.jpg'),
+  //   Story('assets/images/35.jpg'),
+  //   Story('assets/images/36.jpg'),
+  //   Story('assets/images/37.jpg'),
+  //   Story('assets/images/38.jpg'),
+  //   Story('assets/images/39.jpg'),
+  //   Story('assets/images/40.jpg'),
+  // ];
   @override
   void initState() {
     super.initState();
@@ -102,11 +102,11 @@ class _HomeState extends State<Home> {
                           child:
                               Icon(Icons.add, color: Colors.black38, size: 20),
                         ),
-                        Row(
-                          children: storyList.map((e) {
-                            return _buildStories(context, e);
-                          }).toList(),
-                        ),
+                        // Row(
+                        //   children: storyList.map((e) {
+                        //     return _buildStories(context, e);
+                        //   }).toList(),
+                        // ),
                       ],
                     ),
                   ),
@@ -144,43 +144,45 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _buildStories(context, e) {
-    return GestureDetector(
-      onTap: () {
-      //   Navigator.push(
-      //       // context, MaterialPageRoute(builder: (context) => ProfileStory()));
-      // },
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 8, top: 8, bottom: 10),
+Widget _buildStories(context, e) {
+  return GestureDetector(
+    onTap: () {
+      // Navigator.push(
+      // context, MaterialPageRoute(builder: (context) => ProfileStory()));
+    },
+    child: Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 8, top: 8, bottom: 10),
+          child: CircleAvatar(
+            backgroundColor: appColorBtn,
+            radius: 32,
             child: CircleAvatar(
-              backgroundColor: appColorBtn,
-              radius: 32,
-              child: CircleAvatar(
-                backgroundImage: AssetImage(e.img),
-                radius: 30,
-              ),
+              backgroundImage: AssetImage(e.img),
+              radius: 30,
             ),
           ),
-          Positioned(
-              top: 16,
-              right: 4,
-              child: Container(
-                width: 10,
-                height: 10,
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(100),
-                    ),
-                    border: Border.all(width: 1, color: Colors.white)),
-              )),
-        ];
-      );
-    );
-  }
+        ),
+        Positioned(
+          top: 16,
+          right: 4,
+          child: Container(
+            width: 10,
+            height: 10,
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.all(
+                Radius.circular(100),
+              ),
+              border: Border.all(width: 1, color: Colors.white),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   Widget _buildPost() {
     return Container(
@@ -259,7 +261,7 @@ class Item {
   final String name;
 }
 
-class Story {
-  const Story(this.img);
-  final img;
-}
+// class Story {
+//   const Story(this.img);
+//   final img;
+// }
