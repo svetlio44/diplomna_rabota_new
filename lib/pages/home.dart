@@ -111,8 +111,8 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                _buildPost(),
-                _buildPost(),
+                // _buildPost(),
+                // _buildPost(),
               ],
             ),
           ),
@@ -184,76 +184,76 @@ Widget _buildStories(context, e) {
   );
 }
 
-  Widget _buildPost() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage('assets/images/2.jpg'),
-                radius: 24,
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    boldText('Vivian Richardson'),
-                    smallText('30 mins ago')
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  Icon(Icons.favorite_border, color: Colors.black54, size: 18),
-                  SizedBox(width: 4),
-                  greyTextSmall('24')
-                ],
-              ),
-              SizedBox(width: 16),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Comments()));
-                    },
-                    child: Icon(Icons.mode_comment_outlined,
-                        color: Colors.black54, size: 18),
-                  ),
-                  SizedBox(width: 4),
-                  greyTextSmall('32')
-                ],
-              )
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 12),
-            height: 320,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              // color: appColor,
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 20,
-                    offset: Offset(0, 24),
-                    color: Colors.black38.withOpacity(.4),
-                    spreadRadius: -5)
-              ],
-
-              image: DecorationImage(
-                  image: AssetImage('assets/images/viv.jpg'),
-                  fit: BoxFit.fitHeight),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildPost() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+  //     child: Column(
+  //       children: [
+  //         Row(
+  //           children: [
+  //             CircleAvatar(
+  //               backgroundImage: AssetImage('assets/images/2.jpg'),
+  //               radius: 24,
+  //             ),
+  //             SizedBox(width: 10),
+  //             Expanded(
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   boldText('Vivian Richardson'),
+  //                   smallText('30 mins ago')
+  //                 ],
+  //               ),
+  //             ),
+  //             Row(
+  //               children: [
+  //                 Icon(Icons.favorite_border, color: Colors.black54, size: 18),
+  //                 SizedBox(width: 4),
+  //                 greyTextSmall('24')
+  //               ],
+  //             ),
+  //             SizedBox(width: 16),
+  //             Row(
+  //               children: [
+  //                 GestureDetector(
+  //                   onTap: () {
+  //                     Navigator.push(
+  //                         context,
+  //                         MaterialPageRoute(
+  //                             builder: (context) => const Comments()));
+  //                   },
+  //                   child: Icon(Icons.mode_comment_outlined,
+  //                       color: Colors.black54, size: 18),
+  //                 ),
+  //                 SizedBox(width: 4),
+  //                 greyTextSmall('32')
+  //               ],
+  //             )
+  //           ],
+  //         ),
+  //         Container(
+  //           margin: EdgeInsets.symmetric(vertical: 12),
+  //           height: 320,
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.all(Radius.circular(16)),
+  //             // color: appColor,
+  //             boxShadow: [
+  //               BoxShadow(
+  //                   blurRadius: 20,
+  //                   offset: Offset(0, 24),
+  //                   color: Colors.black38.withOpacity(.4),
+  //                   spreadRadius: -5)
+  //             ],
+  //
+  //             image: DecorationImage(
+  //                 image: AssetImage('assets/images/viv.jpg'),
+  //                 fit: BoxFit.fitHeight),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
 
 class Item {
