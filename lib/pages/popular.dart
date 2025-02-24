@@ -34,8 +34,6 @@ class _PopularState extends State<Popular> with SingleTickerProviderStateMixin {
   }
 
   List<Item> photoList = <Item>[
-    Item('assets/images/32.jpg'),
-    Item('assets/images/31.jpg'),
     Item('assets/images/34.jpg'),
     Item('assets/images/36.jpg'),
     Item('assets/images/38.jpg'),
