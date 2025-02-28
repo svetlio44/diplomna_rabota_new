@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/camera.dart';
 import 'package:diplomna_rabota_new/pages/comment.dart';
 import 'package:diplomna_rabota_new/pages/add_ad.dart';
-import 'package:diplomna_rabota_new/pages/view_ad.dart';
-import 'package:diplomna_rabota_new/pages/edit_ad.dart';
 import 'package:diplomna_rabota_new/pages/ads_list.dart';
 import 'package:diplomna_rabota_new/pages/search_ads.dart';
 import 'package:diplomna_rabota_new/pages/profile.dart';
@@ -95,24 +93,12 @@ class _HomeState extends State<Home> {
                         backgroundColor: backgroundColor,
                         child: Icon(Icons.add, color: Colors.black38, size: 20),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, AddAd.id);
-                        },
-                        child: Text('Add Ad'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, AdsList.id);
-                        },
-                        child: Text('View Ads'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, SearchAds.id);
-                        },
-                        child: Text('Search Ads'),
-                      ),
+                      SizedBox(width: 10),
+                      _buildButton(context, 'Add Ad', AddAd.id),
+                      SizedBox(width: 10),
+                      _buildButton(context, 'View Ads', AdsList.id),
+                      SizedBox(width: 10),
+                      _buildButton(context, 'Search Ads', SearchAds.id),
                     ],
                   ),
                 ),
@@ -148,6 +134,24 @@ class _HomeState extends State<Home> {
               fontSize: 12),
         ),
       ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String text, String route) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.pushNamed(context, route);
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white, backgroundColor: appColorBtn,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        textStyle: TextStyle(fontSize: 16, fontFamily: 'medium'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        elevation: 5,
+      ),
+      child: Text(text),
     );
   }
 }
