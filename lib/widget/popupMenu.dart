@@ -43,13 +43,6 @@ class popUpMenu extends StatelessWidget {
                   ),
                 )),
         PopupMenuItem(
-            child: Text('2colgrid'),
-            onTap: () => Future(
-                  () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => GridTwoHome()),
-                  ),
-                )),
-        PopupMenuItem(
             child: Text('Post Detail'),
             onTap: () => Future(
                   () => Navigator.of(context).push(
@@ -68,13 +61,6 @@ class popUpMenu extends StatelessWidget {
             onTap: () => Future(
                   () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => Notifications()),
-                  ),
-                )),
-        PopupMenuItem(
-            child: Text('Find Friends'),
-            onTap: () => Future(
-                  () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => FindFriends()),
                   ),
                 )),
       ],

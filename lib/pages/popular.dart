@@ -80,9 +80,9 @@ class _PopularState extends State<Popular> with SingleTickerProviderStateMixin {
               Tab(
                 child: Text('Videos', style: TextStyle(fontFamily: 'medium')),
               ),
-              Tab(
-                child: Text('Photos', style: TextStyle(fontFamily: 'medium')),
-              ),
+              // Tab(
+              //   child: Text('Photos', style: TextStyle(fontFamily: 'medium')),
+              // ),
             ],
           ),
           Expanded(

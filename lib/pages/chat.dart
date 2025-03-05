@@ -8,7 +8,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/call.dart';
-import 'package:diplomna_rabota_new/pages/videocall.dart';
+// import 'package:diplomna_rabota_new/pages/videocall.dart';
 import '../components/styles.dart';
 
 class Chat extends StatefulWidget {
@@ -77,15 +77,15 @@ class _ChatState extends State<Chat> {
             },
             icon: Icon(Icons.phone),
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const VideoCall()));
-            },
-            icon: Icon(Icons.videocam),
-          ),
-        ],
-      ),
+      //     IconButton(
+      //       onPressed: () {
+      //         Navigator.push(context,
+      //             MaterialPageRoute(builder: (context) => const VideoCall()));
+      //       },
+      //       icon: Icon(Icons.videocam),
+      //     ),
+       ],
+       ),
       body: _buildBody(),
       bottomNavigationBar: _buildBottom(),
     );

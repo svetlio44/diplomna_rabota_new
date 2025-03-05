@@ -36,6 +36,12 @@ class _AddAdState extends State<AddAd> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Ad'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.camera_alt),
+            onPressed: _pickImage,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

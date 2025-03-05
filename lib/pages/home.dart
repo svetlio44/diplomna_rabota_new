@@ -20,14 +20,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int tabID = 1;
 
-  List<Item> categoryList = <Item>[
-    Item('#Travel'),
-    Item('#Food'),
-    Item('#Fashion'),
-    Item('#Gaming'),
-    Item('#Technology'),
-    Item('#lorem'),
-  ];
+  // List<Item> categoryList = <Item>[
+  //   Item('#Travel'),
+  //   Item('#Food'),
+  //   Item('#Fashion'),
+  //   Item('#Gaming'),
+  //   Item('#Technology'),
+  //   Item('#lorem'),
+  // ];
 
   @override
   void initState() {
@@ -76,9 +76,9 @@ class _HomeState extends State<Home> {
                 child: Container(
                   padding: EdgeInsets.only(left: 16),
                   child: Row(
-                    children: categoryList.map((e) {
-                      return _buildCategory(context, e);
-                    }).toList(),
+                    // children: categoryList.map((e) {
+                    //   return _buildCategory(context, e);
+                    // }).toList(),
                   ),
                 ),
               ),
