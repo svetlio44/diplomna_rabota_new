@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/camera.dart';
-import 'package:diplomna_rabota_new/pages/comment.dart';
 import 'package:diplomna_rabota_new/pages/add_ad.dart';
-import 'package:diplomna_rabota_new/pages/ads_list.dart';
-import 'package:diplomna_rabota_new/pages/search_ads.dart';
+import 'package:diplomna_rabota_new/pages/view_ad.dart';
 import 'package:diplomna_rabota_new/pages/profile.dart';
 import 'package:diplomna_rabota_new/widget/popupMenu.dart';
 import '../components/styles.dart';
@@ -18,34 +15,54 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int tabID = 1;
+  final List<Map<String, String>> ads = const [
+    {
+      'title': 'Sample Title 1',
+      'description': 'Sample Description 1',
+      'price': '100',
+    },
+    {
+      'title': 'Sample Title 2',
+      'description': 'Sample Description 2',
+      'price': '200',
+    },
+    // Добавете още обяви тук
+  ];
 
-  // List<Item> categoryList = <Item>[
-  //   Item('#Travel'),
-  //   Item('#Food'),
-  //   Item('#Fashion'),
-  //   Item('#Gaming'),
-  //   Item('#Technology'),
-  //   Item('#lorem'),
-  // ];
+  List<Map<String, String>> filteredAds = [];
 
   @override
   void initState() {
     super.initState();
+    filteredAds = ads;
+  }
+
+  void _filterAds(String query) {
+    final filtered = ads.where((ad) {
+      final titleLower = ad['title']!.toLowerCase();
+      final descriptionLower = ad['description']!.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return titleLower.contains(searchLower) ||
+          descriptionLower.contains(searchLower);
+    }).toList();
+
+    setState(() {
+      filteredAds = filtered;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Camera()));
-          },
-          icon: Icon(Icons.camera_alt_outlined),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //   //   Navigator.push(context,
+        //   //       MaterialPageRoute(builder: (context) => const Camera()));
+        //   // },
+        //   icon: Icon(Icons.camera_alt_outlined),
+        // ),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
           IconButton(
@@ -65,93 +82,56 @@ class _HomeState extends State<Home> {
           style: TextStyle(color: Colors.black, fontFamily: 'medium'),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Container(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Row(
-                    // children: categoryList.map((e) {
-                    //   return _buildCategory(context, e);
-                    // }).toList(),
-                  ),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Search',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Container(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: backgroundColor,
-                        child: Icon(Icons.add, color: Colors.black38, size: 20),
-                      ),
-                      SizedBox(width: 10),
-                      _buildButton(context, 'Add Ad', AddAd.id),
-                      SizedBox(width: 10),
-                      _buildButton(context, 'View Ads', AdsList.id),
-                      SizedBox(width: 10),
-                      _buildButton(context, 'Search Ads', SearchAds.id),
-                    ],
-                  ),
-                ),
+              onChanged: _filterAds,
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredAds.length,
+                itemBuilder: (context, index) {
+                  final ad = filteredAds[index];
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 8.0),
+                    child: ListTile(
+                      title: Text(ad['title']!),
+                      subtitle: Text('Price: ${ad['price']}'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ViewAd(
+                              title: ad['title']!,
+                              description: ad['description']!,
+                              price: ad['price']!,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget _buildCategory(context, e) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          tabID = e.hashCode;
-        });
-      },
-      child: Container(
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: tabID == e.hashCode ? appColorBtn : Colors.white,
-          border: Border.all(
-            color: tabID == e.hashCode ? appColorBtn : Colors.black38,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-        ),
-        child: Text(
-          e.name,
-          style: TextStyle(
-              color: tabID == e.hashCode ? Colors.white : Colors.black38,
-              fontSize: 12),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AddAd.id);
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-    );
-  }
-
-  Widget _buildButton(BuildContext context, String text, String route) {
-    return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, route);
-      },
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.white, backgroundColor: appColorBtn,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        textStyle: TextStyle(fontSize: 16, fontFamily: 'medium'),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        elevation: 5,
-      ),
-      child: Text(text),
     );
   }
 }

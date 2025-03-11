@@ -62,6 +62,7 @@ class _SearchAdsState extends State<SearchAds> {
               decoration: InputDecoration(
                 labelText: 'Search',
                 border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
               ),
               onChanged: _filterAds,
             ),
@@ -71,21 +72,24 @@ class _SearchAdsState extends State<SearchAds> {
                 itemCount: filteredAds.length,
                 itemBuilder: (context, index) {
                   final ad = filteredAds[index];
-                  return ListTile(
-                    title: Text(ad['title']!),
-                    subtitle: Text('Price: ${ad['price']}'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewAd(
-                            title: ad['title']!,
-                            description: ad['description']!,
-                            price: ad['price']!,
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 8.0),
+                    child: ListTile(
+                      title: Text(ad['title']!),
+                      subtitle: Text('Price: ${ad['price']}'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ViewAd(
+                              title: ad['title']!,
+                              description: ad['description']!,
+                              price: ad['price']!,
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 },
               ),

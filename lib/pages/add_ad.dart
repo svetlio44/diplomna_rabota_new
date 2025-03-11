@@ -122,28 +122,29 @@ class _AddAdState extends State<AddAd> {
                     ? Text('No image selected.')
                     : Image.file(_image!),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      // Implement the functionality to add the ad here
-                      // For now, just print the values to console
-                      print('Title: $_title');
-                      print('Description: $_description');
-                      print('Price: $_price');
-                      print('Phone Number: $_phoneNumber');
-                      print('Email: $_email');
-                      if (_image != null) {
-                        print('Image path: ${_image!.path}');
-                      }
-                    }
-                  },
-                  child: Text('Add Ad'),
-                ),
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
+            // Implement the functionality to add the ad here
+            // For now, just print the values to console
+            print('Title: $_title');
+            print('Description: $_description');
+            print('Price: $_price');
+            print('Phone Number: $_phoneNumber');
+            print('Email: $_email');
+            if (_image != null) {
+              print('Image path: ${_image!.path}');
+            }
+          }
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
