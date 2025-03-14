@@ -9,16 +9,16 @@
 import 'package:flutter/material.dart';
 import '../components/styles.dart';
 
-class PostDetail extends StatefulWidget {
+class AdsDetail extends StatefulWidget {
   static const String id = 'PostDetail';
 
-  const PostDetail({Key? key}) : super(key: key);
+  const AdsDetail({Key? key}) : super(key: key);
 
   @override
-  _PostDetailState createState() => _PostDetailState();
+  _AdsDetail createState() => _AdsDetail();
 }
 
-class _PostDetailState extends State<PostDetail> {
+class _AdsDetail extends State<AdsDetail> {
   bool isFollowing = false;
   List<Item> photoList = <Item>[
     Item('assets/images/32.jpg'),
@@ -77,12 +77,11 @@ class _PostDetailState extends State<PostDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     boldText('Vivian Richardson'),
-                    smallText('30 mins ago')
                   ],
                 ),
               ),
               OutlinedButton(
-                child: greyTextSmall("Following"),
+                child: greyTextSmall("View Profile"),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.black54, side: BorderSide(
                     color: isFollowing ? Colors.black54 : appColor,
@@ -177,17 +176,7 @@ class _PostDetailState extends State<PostDetail> {
                         fontFamily: 'regular',
                         fontSize: 14),
                   ),
-                  TextSpan(
-                    text: ' @Gavaskara',
-                    style: TextStyle(
-                        color: appColor, fontFamily: 'regular', fontSize: 14),
-                  )
                 ]),
-          ),
-          Text(
-            '#westindies #captain',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'bold', fontSize: 14),
           ),
           SizedBox(height: 8),
           greyTextSmall('View more comments'),

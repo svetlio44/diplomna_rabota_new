@@ -7,12 +7,8 @@
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/find_partners.dart';
-import 'package:diplomna_rabota_new/pages/grid_two.dart';
 import 'package:diplomna_rabota_new/pages/notifications.dart';
-import 'package:diplomna_rabota_new/pages/popular.dart';
 import 'package:diplomna_rabota_new/pages/order_detail.dart';
-import 'package:diplomna_rabota_new/pages/search.dart';
 import 'package:diplomna_rabota_new/pages/settings.dart';
 
 class popUpMenu extends StatelessWidget {
@@ -22,31 +18,10 @@ class popUpMenu extends StatelessWidget {
       icon: Icon(Icons.more_vert),
       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
         PopupMenuItem(
-            child: Text('Search'),
+            child: Text('AdsDetail'),
             onTap: () => Future(
                   () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => Search()),
-                  ),
-                )),
-        // PopupMenuItem(
-        //     child: Text('Live TV'),
-        //     onTap: () => Future(
-        //           () => Navigator.of(context).push(
-        //             MaterialPageRoute(builder: (_) => LiveTV()),
-        //           ),
-        //         )),
-        PopupMenuItem(
-            child: Text('Popular'),
-            onTap: () => Future(
-                  () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => Popular()),
-                  ),
-                )),
-        PopupMenuItem(
-            child: Text('Post Detail'),
-            onTap: () => Future(
-                  () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => PostDetail()),
+                    MaterialPageRoute(builder: (_) => AdsDetail()),
                   ),
                 )),
         PopupMenuItem(

@@ -7,7 +7,7 @@
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/create_order.dart';
+import 'package:diplomna_rabota_new/pages/ad_detail.dart';
 import '../components/styles.dart';
 
 class MyProfile extends StatefulWidget {
@@ -20,74 +20,24 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  TabController? _tabController;
-  List<Item> photoList = <Item>[
-    Item('assets/images/32.jpg'),
-    Item('assets/images/31.jpg'),
-    Item('assets/images/34.jpg'),
-    Item('assets/images/36.jpg'),
-    Item('assets/images/38.jpg'),
-    Item('assets/images/35.jpg'),
-    Item('assets/images/40.jpg'),
-    Item('assets/images/39.jpg'),
-  ];
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 3,
+        length: 1, // Само един таб
         child: NestedScrollView(
           headerSliverBuilder: (context, value) {
             return [
               SliverAppBar(
                 centerTitle: true,
-                actions: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.more_horiz,
-                        color: Colors.black,
-                      )),
-                ],
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CreatePost()));
-                    },
-                    icon: Icon(
-                      Icons.camera_alt_outlined,
-                      color: Colors.black,
-                    )),
                 title: Text('My Profile',
                     style:
-                        TextStyle(color: Colors.black, fontFamily: 'medium')),
+                    TextStyle(color: Colors.black, fontFamily: 'medium')),
                 floating: true,
                 pinned: true,
                 snap: false,
                 expandedHeight: 240.0,
                 backgroundColor: Colors.white,
-                bottom: TabBar(
-                  unselectedLabelColor: Colors.black45,
-                  labelColor: appColorBtn,
-                  controller: _tabController,
-                  indicatorColor: appColorBtn,
-                  labelStyle: TextStyle(fontFamily: 'medium', fontSize: 14),
-                  unselectedLabelStyle:
-                      TextStyle(fontFamily: 'medium', fontSize: 14),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: [
-                    Tab(child: Icon(Icons.videocam_outlined)),
-                    Tab(child: Icon(Icons.image_outlined)),
-                    Tab(child: Icon(Icons.favorite_border))
-                  ],
-                ),
                 flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.pin,
                     background: Container(
@@ -100,7 +50,7 @@ class _MyProfileState extends State<MyProfile> {
                             children: [
                               CircleAvatar(
                                 backgroundImage:
-                                    AssetImage('assets/images/33.png'),
+                                AssetImage('assets/images/33.png'),
                                 radius: 42,
                               ),
                               SizedBox(width: 16),
@@ -113,11 +63,11 @@ class _MyProfileState extends State<MyProfile> {
                                     SizedBox(height: 12),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             boldText('120'),
                                             greyTextSmall('Friends')
@@ -125,7 +75,7 @@ class _MyProfileState extends State<MyProfile> {
                                         ),
                                         Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             boldText('23m'),
                                             greyTextSmall('Followers')
@@ -133,7 +83,7 @@ class _MyProfileState extends State<MyProfile> {
                                         ),
                                         Column(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                           children: [
                                             boldText('12k'),
                                             smallText('Following')
@@ -153,21 +103,12 @@ class _MyProfileState extends State<MyProfile> {
             ];
           },
           body: TabBarView(
-            controller: _tabController,
             children: [
               SingleChildScrollView(
                 child: Column(
-                  children: photoList.map((e) {
-                    return _buildPost();
-                  }).toList(),
-                ),
-              ),
-              SingleChildScrollView(child: gridProfile()),
-              SingleChildScrollView(
-                child: Column(
-                  children: photoList.map((e) {
-                    return _buildPhoto(context, e);
-                  }).toList(),
+                  children: [
+                    _buildAdsSection(), // Нова секция за обявите
+                  ],
                 ),
               ),
             ],
@@ -177,231 +118,52 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  Widget _buildPhoto(context, e) {
-    return GestureDetector(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-        height: 450,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          image: DecorationImage(
-            image: AssetImage(e.img),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              bottom: 10,
-              left: 10,
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(e.img),
-                    radius: 18,
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('vivan20',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                              fontFamily: 'medium')),
-                      Row(
-                        children: [
-                          Icon(Icons.remove_red_eye,
-                              color: Colors.white, size: 18),
-                          SizedBox(width: 10),
-                          Text('43.3k views',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget _buildAdsSection() {
+    final List<Map<String, String>> ads = [
+      {
+        'title': 'Ad Title 1',
+        'description': 'Ad Description 1',
+        'price': '100',
+        'image': 'assets/images/32.jpg',
+      },
+      {
+        'title': 'Ad Title 2',
+        'description': 'Ad Description 2',
+        'price': '200',
+        'image': 'assets/images/31.jpg',
+      },
+      // Добавете още обяви тук
+    ];
 
-  Widget _buildPost() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 12),
-            height: 320,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              // color: appColor,
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 20,
-                    offset: Offset(0, 24),
-                    color: Colors.black38.withOpacity(.4),
-                    spreadRadius: -5)
-              ],
-
-              image: DecorationImage(
-                  image: AssetImage('assets/images/viv.jpg'),
-                  fit: BoxFit.fitHeight),
+        children: ads.map((ad) {
+          return Card(
+            margin: EdgeInsets.symmetric(vertical: 8.0),
+            child: ListTile(
+              leading: Image.asset(ad['image']!, fit: BoxFit.cover, width: 50),
+              title: Text(ad['title']!),
+              subtitle: Text(ad['description']!),
+              trailing: Text('\$${ad['price']}'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AdDetail(
+                      title: ad['title']!,
+                      description: ad['description']!,
+                      price: ad['price']!,
+                      image: ad['image']!,
+                    ),
+                  ),
+                );
+              },
             ),
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.favorite_border,
-                          color: Colors.black54, size: 22),
-                      SizedBox(width: 4),
-                      greyTextSmall('24')
-                    ],
-                  ),
-                  SizedBox(width: 20),
-                  Row(
-                    children: [
-                      Icon(Icons.mode_comment_outlined,
-                          color: Colors.black54, size: 22),
-                      SizedBox(width: 4),
-                      greyTextSmall('32')
-                    ],
-                  ),
-                  SizedBox(width: 20),
-                  Row(
-                    children: [
-                      Icon(Icons.remove_red_eye_outlined,
-                          color: Colors.black54, size: 22),
-                      SizedBox(width: 4),
-                      greyTextSmall('820')
-                    ],
-                  )
-                ],
-              ),
-              Icon(Icons.more_horiz, color: Colors.black38, size: 22),
-            ],
-          ),
-          SizedBox(height: 16),
-          RichText(
-            text: TextSpan(
-                text: 'VivRichard ',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'bold', fontSize: 14),
-                children: [
-                  TextSpan(
-                    text:
-                        'Its been a to play on sand of motherland. viv richardsan is best captain  thanks!',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'regular',
-                        fontSize: 14),
-                  ),
-                  TextSpan(
-                    text: ' @Gavaskara',
-                    style: TextStyle(
-                        color: appColor, fontFamily: 'regular', fontSize: 14),
-                  )
-                ]),
-          ),
-          Text(
-            '#westindies #captain',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'bold', fontSize: 14),
-          ),
-          SizedBox(height: 8),
-          greyTextSmall('View more comments'),
-        ],
+          );
+        }).toList(),
       ),
     );
   }
-
-  Widget gridProfile() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GridView.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            shrinkWrap: true,
-            childAspectRatio: 82 / 100,
-            physics: const ScrollPhysics(),
-            children: photoList.map((e) {
-              return Column(
-                children: [
-                  Container(
-                    height: 230,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      image: DecorationImage(
-                        image: AssetImage(e.img),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          top: 10,
-                          right: 10,
-                          child: Text('02:12',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              )),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          left: 10,
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: AssetImage(e.img),
-                                radius: 18,
-                              ),
-                              SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Richardson',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.white,
-                                          fontFamily: 'medium')),
-                                  Text('220k Views',
-                                      style: TextStyle(
-                                          fontSize: 10, color: Colors.white)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            }).toList(),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class Item {
-  const Item(this.img);
-  final img;
 }

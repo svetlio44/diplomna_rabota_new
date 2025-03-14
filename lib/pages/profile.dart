@@ -15,6 +15,7 @@ class _ProfileState extends State<Profile> {
   String _name = 'John Doe';
   String _email = 'john.doe@example.com';
   String _phone = '123-456-7890';
+  String _age = '25'; //
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,13 @@ class _ProfileState extends State<Profile> {
                   _phone = value!;
                 },
               ),
+                TextFormField(
+                  initialValue: _age,
+                  decoration: InputDecoration(labelText: 'age '),
+                  onSaved: (value) {
+                    _age = value!;
+                  },
+                ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {

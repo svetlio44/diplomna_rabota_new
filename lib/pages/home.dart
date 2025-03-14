@@ -20,11 +20,13 @@ class _HomeState extends State<Home> {
       'title': 'Sample Title 1',
       'description': 'Sample Description 1',
       'price': '100',
+      'image': 'assets/images/32.jpg',
     },
     {
       'title': 'Sample Title 2',
       'description': 'Sample Description 2',
       'price': '200',
+      'image': 'assets/images/31.jpg',
     },
     // Добавете още обяви тук
   ];
@@ -38,17 +40,13 @@ class _HomeState extends State<Home> {
   }
 
   void _filterAds(String query) {
-    final filtered = ads.where((ad) {
-      final titleLower = ad['title']!.toLowerCase();
-      final descriptionLower = ad['description']!.toLowerCase();
-      final searchLower = query.toLowerCase();
-
-      return titleLower.contains(searchLower) ||
-          descriptionLower.contains(searchLower);
-    }).toList();
-
+    final searchLower = query.toLowerCase();
     setState(() {
-      filteredAds = filtered;
+      filteredAds = ads.where((ad) {
+        final titleLower = ad['title']!.toLowerCase();
+        final descriptionLower = ad['description']!.toLowerCase();
+        return titleLower.contains(searchLower) || descriptionLower.contains(searchLower);
+      }).toList();
     });
   }
 
@@ -56,28 +54,19 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   onPressed: () {
-        //   //   Navigator.push(context,
-        //   //       MaterialPageRoute(builder: (context) => const Camera()));
-        //   // },
-        //   icon: Icon(Icons.camera_alt_outlined),
-        // ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, Profile.id);
-            },
-            icon: Icon(Icons.person),
+            onPressed: () => Navigator.pushNamed(context, Profile.id),
+            icon: const Icon(Icons.person),
           ),
           popUpMenu(),
         ],
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black54),
+        iconTheme: const IconThemeData(color: Colors.black54),
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Feeds',
           style: TextStyle(color: Colors.black, fontFamily: 'medium'),
         ),
@@ -87,22 +76,23 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.search),
               ),
               onChanged: _filterAds,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: ListView.builder(
                 itemCount: filteredAds.length,
                 itemBuilder: (context, index) {
                   final ad = filteredAds[index];
                   return Card(
-                    margin: EdgeInsets.symmetric(vertical: 8.0),
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ListTile(
+                      leading: Image.asset(ad['image']!, width: 50, fit: BoxFit.cover),
                       title: Text(ad['title']!),
                       subtitle: Text('Price: ${ad['price']}'),
                       onTap: () {
@@ -126,10 +116,8 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, AddAd.id);
-        },
-        child: Icon(Icons.add),
+        onPressed: () => Navigator.pushNamed(context, AddAd.id),
+        child: const Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
