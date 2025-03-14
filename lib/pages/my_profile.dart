@@ -90,6 +90,13 @@ class _MyProfileState extends State<MyProfile> {
                                         )
                                       ],
                                     ),
+                                    SizedBox(height: 16),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Действие за редактиране на профила
+                                      },
+                                      child: Text('Edit Profile'),
+                                    ),
                                   ],
                                 ),
                               )
