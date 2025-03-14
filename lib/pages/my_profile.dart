@@ -58,8 +58,7 @@ class _MyProfileState extends State<MyProfile> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    blackBoldText('Vivian Richardsan'),
-                                    greyTextSmall('@vivrichard'),
+                                    blackBoldText('Светлозар Кралев'),
                                     SizedBox(height: 12),
                                     Row(
                                       mainAxisAlignment:
@@ -69,8 +68,8 @@ class _MyProfileState extends State<MyProfile> {
                                           crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                           children: [
-                                            boldText('120'),
-                                            greyTextSmall('Friends')
+                                            boldText('2'),
+                                            greyTextSmall('Ads')
                                           ],
                                         ),
                                         Column(
@@ -90,7 +89,7 @@ class _MyProfileState extends State<MyProfile> {
                                           ],
                                         )
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               )
@@ -107,6 +106,22 @@ class _MyProfileState extends State<MyProfile> {
               SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24.0),
+                          child: Text(
+                            'My Ads',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     _buildAdsSection(), // Нова секция за обявите
                   ],
                 ),
@@ -121,13 +136,13 @@ class _MyProfileState extends State<MyProfile> {
   Widget _buildAdsSection() {
     final List<Map<String, String>> ads = [
       {
-        'title': 'Ad Title 1',
+        'title': 'Обява 1',
         'description': 'Ad Description 1',
         'price': '100',
         'image': 'assets/images/32.jpg',
       },
       {
-        'title': 'Ad Title 2',
+        'title': 'Обява 2',
         'description': 'Ad Description 2',
         'price': '200',
         'image': 'assets/images/31.jpg',
