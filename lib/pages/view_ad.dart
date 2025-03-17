@@ -19,6 +19,12 @@ class ViewAd extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('View Ad'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Връща назад към предходната страница
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

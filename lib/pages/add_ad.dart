@@ -36,6 +36,12 @@ class _AddAdState extends State<AddAd> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Ad'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Връща назад към предходната страница
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.camera_alt),
