@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/change_password.dart'; // Добавете този ред
 
 class Profile extends StatefulWidget {
   static const String id = 'Profile';
@@ -11,12 +10,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final _formKey = GlobalKey<FormState>();
   String _name = 'John Doe';
   String _email = 'john.doe@example.com';
   String _phone = '123-456-7890';
-  String _age = '25'; //
-
+  String _age = '25';
+  // примерни данни
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,57 +23,44 @@ class _ProfileState extends State<Profile> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                initialValue: _name,
-                decoration: InputDecoration(labelText: 'Name'),
-                onSaved: (value) {
-                  _name = value!;
-                },
-              ),
-              TextFormField(
-                initialValue: _email,
-                decoration: InputDecoration(labelText: 'Email'),
-                onSaved: (value) {
-                  _email = value!;
-                },
-              ),
-              TextFormField(
-                initialValue: _phone,
-                decoration: InputDecoration(labelText: 'Phone'),
-                onSaved: (value) {
-                  _phone = value!;
-                },
-              ),
-                TextFormField(
-                  initialValue: _age,
-                  decoration: InputDecoration(labelText: 'age '),
-                  onSaved: (value) {
-                    _age = value!;
-                  },
-                ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    // Save the profile information to the database or perform other actions
-                  }
-                },
-                child: Text('Save Changes'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, ChangePassword.id);
-                },
-                child: Text('Change Password'),
-              ),
-            ],
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Name:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
+            Text(_name),
+            SizedBox(height: 20),
+            Text(
+              'Email:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
+            Text(_email),
+            SizedBox(height: 20),
+            Text(
+              'Phone:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
+            Text(_phone),
+            SizedBox(height: 20),
+            Text(
+              'Age:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
+            Text(_age),
+            SizedBox(height: 20),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, 'EditProfile');
+            //   },
+            //   child: Text('Edit Profile'),
+            // ),
+          ],
         ),
       ),
     );

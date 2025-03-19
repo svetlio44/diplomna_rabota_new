@@ -6,6 +6,7 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2021-present initappz.
 */
+import 'package:diplomna_rabota_new/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/change_password.dart';
 import 'package:diplomna_rabota_new/pages/edit_profile.dart';
@@ -55,6 +56,20 @@ class _SettingsState extends State<Settings> {
                         MaterialPageRoute(
                             builder: (context) => const EditProfile()));
                   },
+
+                  trailing: Icon(Icons.chevron_right),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: Text('My profile info'),
+
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Profile()));
+                  },
                   trailing: Icon(Icons.chevron_right),
                 ),
               ),
@@ -70,18 +85,18 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.chevron_right),
                 ),
               ),
-              Card(
-                child: ListTile(
-                  title: Text('Notifications'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Notifications()));
-                  },
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
+              // Card(
+              //   child: ListTile(
+              //     title: Text('Notifications'),
+              //     onTap: () {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => const ()));
+              //     },
+              //     trailing: Icon(Icons.chevron_right),
+              //   ),
+              // ),
               Card(
                 child: ListTile(
                   title: Text('Language'),
@@ -94,12 +109,12 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.chevron_right),
                 ),
               ),
-              Card(
-                child: ListTile(
-                  title: Text('Teport Problems'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
+              // Card(
+              //   child: ListTile(
+              //     title: Text('Teport Problems'),
+              //     trailing: Icon(Icons.chevron_right),
+              //   ),
+              // ),
               Card(
                 child: ListTile(
                   title: Text('Terms of use'),

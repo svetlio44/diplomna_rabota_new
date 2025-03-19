@@ -1,11 +1,3 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Flutter UI Kit
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2021-present initappz.
-*/
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/call.dart';
 // import 'package:diplomna_rabota_new/pages/videocall.dart';
@@ -47,8 +39,13 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Връща назад към предходната страница
+          },
+        ),
         backgroundColor: Colors.white,
         toolbarHeight: 70,
         elevation: 0,
@@ -70,22 +67,24 @@ class _ChatState extends State<Chat> {
           ],
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const CallScreen()));
-            },
-            icon: Icon(Icons.phone),
-          ),
-      //     IconButton(
-      //       onPressed: () {
-      //         Navigator.push(context,
-      //             MaterialPageRoute(builder: (context) => const VideoCall()));
-      //       },
-      //       icon: Icon(Icons.videocam),
-      //     ),
-       ],
-       ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => const CallScreen()));
+          //   },
+          //   icon: Icon(Icons.phone),
+          // ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) => const VideoCall()));
+          //   },
+          //   icon: Icon(Icons.videocam),
+          // ),
+        ],
+      ),
       body: _buildBody(),
       bottomNavigationBar: _buildBottom(),
     );

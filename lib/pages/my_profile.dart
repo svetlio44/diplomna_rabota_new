@@ -1,14 +1,7 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Flutter UI Kit
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2021-present initappz.
-*/
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/ad_detail.dart';
 import '../components/styles.dart';
+import 'package:diplomna_rabota_new/pages/edit_profile.dart';
 
 class MyProfile extends StatefulWidget {
   static const String id = 'MyProfile';
@@ -31,8 +24,7 @@ class _MyProfileState extends State<MyProfile> {
               SliverAppBar(
                 centerTitle: true,
                 title: Text('My Profile',
-                    style:
-                    TextStyle(color: Colors.black, fontFamily: 'medium')),
+                    style: TextStyle(color: Colors.black, fontFamily: 'medium')),
                 floating: true,
                 pinned: true,
                 snap: false,
@@ -76,27 +68,19 @@ class _MyProfileState extends State<MyProfile> {
                                           crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                           children: [
-                                            boldText('23m'),
-                                            greyTextSmall('Followers')
+                                            boldText('+359 123 456 789'),
+                                            greyTextSmall('Phone Number')
                                           ],
                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            boldText('12k'),
-                                            smallText('Following')
-                                          ],
-                                        )
                                       ],
                                     ),
-                                    SizedBox(height: 16),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        // Действие за редактиране на профила
-                                      },
-                                      child: Text('Edit Profile'),
-                                    ),
+                                    // SizedBox(height: 16),
+                                    // ElevatedButton(
+                                    //   onPressed: () {
+                                    //     // Действие за редактиране на профила
+                                    //   },
+                                    //   child: Text('Edit Profile'),
+                                    // ),
                                   ],
                                 ),
                               )

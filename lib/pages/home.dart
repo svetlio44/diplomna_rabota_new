@@ -56,10 +56,10 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
-          IconButton(
-            onPressed: () => Navigator.pushNamed(context, Profile.id),
-            icon: const Icon(Icons.person),
-          ),
+          // IconButton(
+          //   onPressed: () => Navigator.pushNamed(context, Profile.id),
+          //   icon: const Icon(Icons.person),
+          // ),
           popUpMenu(),
         ],
         backgroundColor: Colors.white,
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          'Feeds',
+          'Home',
           style: TextStyle(color: Colors.black, fontFamily: 'medium'),
         ),
       ),
