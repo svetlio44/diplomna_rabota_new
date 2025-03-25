@@ -18,7 +18,7 @@ class AdDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ad Detail'),
+        title: Text('My ads detail'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

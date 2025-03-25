@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
             );
           case ViewAd.id:
             return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const ViewAd(title: '', description: '', price: ''),
+              pageBuilder: (context, animation, secondaryAnimation) => const ViewAd(title: '', description: '', price: '', imagePath: '', phoneNumber: '', email: ''),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 const begin = Offset(1.0, 0.0);
                 const end = Offset.zero;
@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
             );
           case EditAd.id:
             return PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) => const EditAd(title: '', description: '', price: ''),
+              pageBuilder: (context, animation, secondaryAnimation) => const EditAd(title: '', description: '', price: '', imagePath: '', phoneNumber: '', email: ''),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 const begin = Offset(1.0, 0.0);
                 const end = Offset.zero;

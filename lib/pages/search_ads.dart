@@ -85,6 +85,9 @@ class _SearchAdsState extends State<SearchAds> {
                               title: ad['title']!,
                               description: ad['description']!,
                               price: ad['price']!,
+                              imagePath: ad['no image avaible']!,
+                              phoneNumber: ad['0886873610']!,
+                              email: ad['addad.com']!,
                             ),
                           ),
                         );

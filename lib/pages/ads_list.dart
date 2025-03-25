@@ -13,11 +13,13 @@ class AdsList extends StatelessWidget {
       'title': 'Sample Title 1',
       'description': 'Sample Description 1',
       'price': '100',
+      'image': 'assets/images/31.jpg',
     },
     {
       'title': 'Sample Title 2',
       'description': 'Sample Description 2',
       'price': '200',
+      'image': 'assets/images/32.jpg',
     },
     // Добавете още обяви тук
   ];
@@ -43,6 +45,9 @@ class AdsList extends StatelessWidget {
                     title: ad['title']!,
                     description: ad['description']!,
                     price: ad['price']!,
+                    imagePath: ad['image']!,
+                    phoneNumber: ad['phone number']!,
+                    email: ad['email']!,
                   ),
                 ),
               );
@@ -60,6 +65,9 @@ class AdsList extends StatelessWidget {
                           title: ad['title']!,
                           description: ad['description']!,
                           price: ad['price']!,
+                          imagePath: ad['image']!,
+                          phoneNumber: ad['phone number']!,
+                          email: ad['email']!,
                         ),
                       ),
                     );

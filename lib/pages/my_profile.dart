@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:diplomna_rabota_new/pages/ad_detail.dart';
+import 'package:diplomna_rabota_new/pages/My_ads_detail.dart';
 import '../components/styles.dart';
 import 'package:diplomna_rabota_new/pages/edit_profile.dart';
 
