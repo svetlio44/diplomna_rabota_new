@@ -31,13 +31,13 @@ class popUpMenu extends StatelessWidget {
                     MaterialPageRoute(builder: (_) => Settings()),
                   ),
                 )),
-        PopupMenuItem(
-            child: Text('Notifications'),
-            onTap: () => Future(
-                  () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => Notifications()),
-                  ),
-                )),
+        // PopupMenuItem(
+        //     child: Text('Notifications'),
+        //     onTap: () => Future(
+        //           () => Navigator.of(context).push(
+        //             MaterialPageRoute(builder: (_) => Notifications()),
+        //           ),
+        //         )),
       ],
     );
   }

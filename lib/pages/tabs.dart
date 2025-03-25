@@ -64,7 +64,7 @@ class _TabsExampleState extends State<TabsExample> {
           physics: NeverScrollableScrollPhysics(),
           children: [
             Home(),
-            Message(),
+            Notifications(),
             MyProfile(),
           ],
         ),

@@ -10,26 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/chat.dart';
 import '../components/styles.dart';
 
-class Message extends StatefulWidget {
-  static const String id = 'Message';
+class Notifications extends StatefulWidget {
+  static const String id = 'Notifications';
 
-  const Message({Key? key}) : super(key: key);
+  const Notifications({Key? key}) : super(key: key);
 
   @override
-  _MessageState createState() => _MessageState();
+  _NotificationsState createState() => _NotificationsState();
 }
 
-class _MessageState extends State<Message> {
-  List<Item> photoList = <Item>[
-    Item('assets/images/32.jpg'),
-    Item('assets/images/31.jpg'),
-    Item('assets/images/34.jpg'),
-    Item('assets/images/36.jpg'),
-    Item('assets/images/38.jpg'),
-    Item('assets/images/35.jpg'),
-    Item('assets/images/40.jpg'),
-    Item('assets/images/39.jpg'),
-  ];
+class _NotificationsState extends State<Notifications> {
   @override
   void initState() {
     super.initState();
@@ -47,7 +37,7 @@ class _MessageState extends State<Message> {
           iconTheme: IconThemeData(color: Colors.black54),
           elevation: 0,
           centerTitle: true,
-          title: Text('Message',
+          title: Text('Notifications',
               style: TextStyle(color: Colors.black, fontFamily: 'medium')),
         ),
         body: SingleChildScrollView(
@@ -56,21 +46,35 @@ class _MessageState extends State<Message> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildInbox(),
-                _buildInbox(),
-                _buildInbox(),
-                _buildInbox(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildNotitfication('Vivian', 'liked your posts'),
+                    _buildNotitfication('Mary', 'comment on your posts'),
+                    _buildNotitfication('Vivian', 'liked your 4 posts'),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: greyText('Friends Request'),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildRequest('Cortana'),
+                    _buildRequest('Jarvis'),
+                    _buildRequest('Alexa'),
+                  ],
+                ),
               ],
             ),
           ),
         ));
   }
 
-  Widget _buildInbox() {
+  Widget _buildNotitfication(name, text) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Chat()));
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8),
@@ -79,75 +83,88 @@ class _MessageState extends State<Message> {
           border: Border(bottom: BorderSide(color: Colors.black26)),
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 8, top: 8, bottom: 10),
-                  child: CircleAvatar(
-                    backgroundColor: appColorBtn,
-                    radius: 28,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/31.jpg'),
-                      radius: 26,
-                    ),
-                  ),
-                ),
-                Positioned(
-                    top: 12,
-                    right: 2,
-                    child: Container(
-                      width: 10,
-                      height: 10,
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(100),
-                          ),
-                          border: Border.all(width: 1, color: Colors.white)),
-                    )),
-              ],
+            Container(
+              padding: EdgeInsets.only(left: 8, top: 8, bottom: 10),
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/37.jpg'),
+                radius: 26,
+              ),
             ),
             SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Vivian Richardson',
-                    style: TextStyle(
-                        color: appColorBtn, fontFamily: 'medium', fontSize: 14),
-                  ),
+                  Row(children: [
+                    boldText(name),
+                    SizedBox(width: 4),
+                    greyText(text)
+                  ]),
                   SizedBox(height: 6),
-                  greyText('Lets play cricket tournament lorem ipsum'),
+                  greyTextSmall('30 mins ago'),
                 ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                smallText('20 mins'),
-                SizedBox(height: 10),
-                CircleAvatar(
-                  backgroundColor: appColorBtn,
-                  radius: 10,
-                  child: Text(
-                    '6',
-                    style: TextStyle(color: Colors.white, fontSize: 10),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),
     );
   }
-}
 
-class Item {
-  const Item(this.img);
-  final img;
+  Widget _buildRequest(name) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        margin: EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black26)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 8, top: 8, bottom: 10),
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/37.jpg'),
+                radius: 26,
+              ),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    boldText(name),
+                    SizedBox(width: 4),
+                    greyText('Followed you')
+                  ]),
+                  SizedBox(height: 6),
+                  greyTextSmall('30 mins ago'),
+                ],
+              ),
+            ),
+            OutlinedButton(
+              child: greyTextSmall("Follow"),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: appColorBtn, side: BorderSide(
+                color: appColor,
+              ),
+                backgroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
