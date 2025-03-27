@@ -32,9 +32,9 @@ void main() async {
           password: password,
         );
       } catch (e) {
-        prefs.remove('rememberMe');
-        prefs.remove('email');
-        prefs.remove('password');
+        await prefs.remove('rememberMe');
+        await prefs.remove('email');
+        await prefs.remove('password');
       }
     }
   } catch (e) {
@@ -52,9 +52,8 @@ class MyApp extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        // Check if the authentication process is still loading
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
+          return const MaterialApp(
             home: Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
@@ -63,67 +62,62 @@ class MyApp extends StatelessWidget {
           );
         }
 
-        // User is authenticated, navigate to TabsExample
-        if (snapshot.hasData) {
-          print('User is authenticated, navigating to TabsExample');
-          return MaterialApp(
-            title: 'Social Network 2',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: "regular",
-              primaryColor: appColor,
-            ),
-            home: TabsExample(), // Navigate to TabsExample when authenticated
-            onGenerateRoute: (settings) {
-              switch (settings.name) {
-                case Welcome.id:
-                  return _buildPageRoute(const Welcome());
-                case AddAd.id:
-                  return _buildPageRoute(const AddAd());
-                case ViewAd.id:
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return _buildPageRoute(ViewAd(
-                    title: args['title'],
-                    description: args['description'],
-                    price: args['price'],
-                    imagePath: args['imagePath'],
-                    phoneNumber: args['phoneNumber'],
-                    email: args['email'],
-                  ));
-                case EditAd.id:
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return _buildPageRoute(EditAd(
-                    title: args['title'],
-                    description: args['description'],
-                    price: args['price'],
-                    imagePath: args['imagePath'],
-                    phoneNumber: args['phoneNumber'],
-                    email: args['email'],
-                  ));
-                case AdsList.id:
-                  return _buildPageRoute(const AdsList());
-                case DeleteAd.id:
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return _buildPageRoute(DeleteAd(
-                    title: args['title'],
-                    description: args['description'],
-                    price: args['price'],
-                  ));
-                case SearchAds.id:
-                  return _buildPageRoute(const SearchAds());
-                case Profile.id:
-                  return _buildPageRoute(const Profile());
-                case ChangePassword.id:
-                  return _buildPageRoute(const ChangePassword());
-                default:
-                  return _buildPageRoute(const Welcome());
+        final isAuthenticated = snapshot.hasData;
+        final routeArgsHandler = (RouteSettings settings) {
+          switch (settings.name) {
+            case Welcome.id:
+              return _buildPageRoute(const Welcome());
+            case AddAd.id:
+              return _buildPageRoute(const AddAd());
+            case ViewAd.id:
+              if (settings.arguments is! Map<String, dynamic>) {
+                return _buildPageRoute(const Welcome());
               }
-            },
-          );
-        }
+              final args = settings.arguments as Map<String, dynamic>;
+              return _buildPageRoute(ViewAd(
+                title: args['title'] ?? '',
+                description: args['description'] ?? '',
+                price: args['price'] ?? '',
+                imagePath: args['imagePath'] ?? '',
+                phoneNumber: args['phoneNumber'] ?? '',
+                email: args['email'] ?? '',
+              ));
+            case EditAd.id:
+              if (settings.arguments is! Map<String, dynamic>) {
+                return _buildPageRoute(const Welcome());
+              }
+              final args = settings.arguments as Map<String, dynamic>;
+              return _buildPageRoute(EditAd(
+                title: args['title'] ?? '',
+                description: args['description'] ?? '',
+                price: args['price'] ?? '',
+                imagePath: args['imagePath'] ?? '',
+                phoneNumber: args['phoneNumber'] ?? '',
+                email: args['email'] ?? '',
+              ));
+            case AdsList.id:
+              return _buildPageRoute(const AdsList());
+            case DeleteAd.id:
+              if (settings.arguments is! Map<String, dynamic>) {
+                return _buildPageRoute(const Welcome());
+              }
+              final args = settings.arguments as Map<String, dynamic>;
+              return _buildPageRoute(DeleteAd(
+                title: args['title'] ?? '',
+                description: args['description'] ?? '',
+                price: args['price'] ?? '',
+              ));
+            case SearchAds.id:
+              return _buildPageRoute(const SearchAds());
+            case Profile.id:
+              return _buildPageRoute(const Profile());
+            case ChangePassword.id:
+              return _buildPageRoute(const ChangePassword());
+            default:
+              return _buildPageRoute(const Welcome());
+          }
+        };
 
-        // User is not authenticated, show welcome/login screen
-        print('User is not authenticated, showing welcome screen');
         return MaterialApp(
           title: 'Social Network 2',
           debugShowCheckedModeBanner: false,
@@ -131,52 +125,8 @@ class MyApp extends StatelessWidget {
             fontFamily: "regular",
             primaryColor: appColor,
           ),
-          initialRoute: Welcome.id,
-          onGenerateRoute: (settings) {
-            switch (settings.name) {
-              case Welcome.id:
-                return _buildPageRoute(const Welcome());
-              case AddAd.id:
-                return _buildPageRoute(const AddAd());
-              case ViewAd.id:
-                final args = settings.arguments as Map<String, dynamic>;
-                return _buildPageRoute(ViewAd(
-                  title: args['title'],
-                  description: args['description'],
-                  price: args['price'],
-                  imagePath: args['imagePath'],
-                  phoneNumber: args['phoneNumber'],
-                  email: args['email'],
-                ));
-              case EditAd.id:
-                final args = settings.arguments as Map<String, dynamic>;
-                return _buildPageRoute(EditAd(
-                  title: args['title'],
-                  description: args['description'],
-                  price: args['price'],
-                  imagePath: args['imagePath'],
-                  phoneNumber: args['phoneNumber'],
-                  email: args['email'],
-                ));
-              case AdsList.id:
-                return _buildPageRoute(const AdsList());
-              case DeleteAd.id:
-                final args = settings.arguments as Map<String, dynamic>;
-                return _buildPageRoute(DeleteAd(
-                  title: args['title'],
-                  description: args['description'],
-                  price: args['price'],
-                ));
-              case SearchAds.id:
-                return _buildPageRoute(const SearchAds());
-              case Profile.id:
-                return _buildPageRoute(const Profile());
-              case ChangePassword.id:
-                return _buildPageRoute(const ChangePassword());
-              default:
-                return _buildPageRoute(const Welcome());
-            }
-          },
+          home: isAuthenticated ? TabsExample() : const Welcome(),
+          onGenerateRoute: (settings) => routeArgsHandler(settings),
         );
       },
     );
