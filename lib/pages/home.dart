@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/add_ad.dart';
 import 'package:diplomna_rabota_new/pages/view_ad.dart';
 import 'package:diplomna_rabota_new/pages/liked_ads.dart';  // Импортиране на новата страница
-import 'package:diplomna_rabota_new/widget/popupMenu.dart';
+import 'package:diplomna_rabota_new/pages/settings.dart'; // Импортиране на страницата за настройки
 import '../components/styles.dart';
 
 class Home extends StatefulWidget {
@@ -78,7 +78,15 @@ class _HomeState extends State<Home> {
             },
             icon: const Icon(Icons.favorite_border),
           ),
-          popUpMenu(),
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Settings()),
+              );
+            },
+          ),
         ],
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black54),
