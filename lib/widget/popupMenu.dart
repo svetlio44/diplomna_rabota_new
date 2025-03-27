@@ -17,13 +17,6 @@ class popUpMenu extends StatelessWidget {
     return PopupMenuButton(
       icon: Icon(Icons.more_vert),
       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-        // PopupMenuItem(
-        //         //     child: Text('AdsDetail'),
-        //         //     onTap: () => Future(
-        //         //           () => Navigator.of(context).push(
-        //         //             MaterialPageRoute(builder: (_) => AdsDetail()),
-        //         //           ),
-        //         //         )),
         PopupMenuItem(
             child: Text('Settings'),
             onTap: () => Future(
