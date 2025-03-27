@@ -42,7 +42,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30),
-                blackHeading('Forgot Passwrod?'),
+                blackHeading('Forgot Password?'),
                 SizedBox(height: 30),
                 greyText(
                     'Please enter your email to receive the instruction to reset your password'),

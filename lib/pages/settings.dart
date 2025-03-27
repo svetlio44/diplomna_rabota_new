@@ -10,7 +10,7 @@ import 'package:diplomna_rabota_new/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/change_password.dart';
 import 'package:diplomna_rabota_new/pages/edit_profile.dart';
-import 'package:diplomna_rabota_new/pages/notifications.dart';
+import 'package:diplomna_rabota_new/pages/notifications.dart.com';
 import '../components/styles.dart';
 
 class Settings extends StatefulWidget {
