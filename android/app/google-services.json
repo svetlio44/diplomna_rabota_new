@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "715238147490",
+    "project_id": "diplomnarabota-a108b",
+    "storage_bucket": "diplomnarabota-a108b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715238147490:android:593e67a3ed6aa2f4f49efb",
+        "android_client_info": {
+          "package_name": "com.example.svetlio.diplomna_rabota_new"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCxtaXKSts2H-G1bxrymrIlfgcFso42cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
