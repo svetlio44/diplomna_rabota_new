@@ -1,9 +1,19 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Flutter UI Kit
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2021-present initappz.
+*/
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:diplomna_rabota_new/pages/verification.dart';
+import 'package:diplomna_rabota_new/widget/elevated_button.dart';
 import '../components/styles.dart';
-import '../widget/elevated_button.dart';
 
 class ForgotPassword extends StatefulWidget {
+  static const String id = 'ForgotPassword';
+
   const ForgotPassword({Key? key}) : super(key: key);
 
   @override
@@ -11,67 +21,45 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final _auth = FirebaseAuth.instance;
-  final _emailController = TextEditingController();
-  bool _isLoading = false;
-
-  Future<void> _resetPassword() async {
-    if (_emailController.text.isEmpty) return;
-
-    setState(() => _isLoading = true);
-
-    try {
-      await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Password reset email sent!')),
-      );
-      Navigator.pop(context);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to send reset email')),
-      );
-    } finally {
-      setState(() => _isLoading = false);
-    }
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black54),
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Forgot Password', style: TextStyle(
-              fontSize: 24, // Adjust the size as needed
-              fontWeight: FontWeight.bold, // Make it bold if required
-              color: Colors.black, // Set the color to black
-            ),),
-            SizedBox(height: 20),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Enter your email',
-                border: UnderlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 30),
-            _isLoading
-                ? Center(child: CircularProgressIndicator())
-                : MyElevatedButton(
-              onPressed: _resetPassword,
-              colors: appColorBtn,
-              text: 'Send Reset Link',
-            ),
-          ],
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black87),
+          elevation: 0,
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30),
+                blackHeading('Forgot Passwrod?'),
+                SizedBox(height: 30),
+                greyText(
+                    'Please enter your email to receive the instruction to reset your password'),
+                textField('Your Email', Icons.check),
+                SizedBox(height: 30),
+                MyElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Verification()));
+                    },
+                    colors: appColorBtn,
+                    text: 'Send me now'),
+              ],
+            ),
+          ),
+        ));
   }
 }

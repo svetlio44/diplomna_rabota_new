@@ -11,59 +11,62 @@ import 'package:flutter/material.dart';
 const appColor = Color(0xFFFFA688);
 const appColor2 = Color(0xFF272D69);
 const appColorBtn = Color(0xFFEF5859);
-
 const backgroundColor = Color.fromARGB(255, 243, 243, 243);
 
-blackHeading(val) {
+// Text Styles
+const TextStyle boldTextStyle = TextStyle(fontFamily: 'bold', color: Colors.black);
+const TextStyle mediumTextStyle = TextStyle(fontFamily: 'medium', color: Colors.black54);
+
+Widget blackHeading(String val) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8),
     child: Text(
       val,
-      style: TextStyle(fontSize: 24, fontFamily: 'bold', color: Colors.black),
+      style: boldTextStyle.copyWith(fontSize: 24),
     ),
   );
 }
 
-centerkHeading(val) {
+Widget centerHeading(String val) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 16),
     child: Text(
       val,
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 24, fontFamily: 'bold', color: Colors.white),
+      style: boldTextStyle.copyWith(fontSize: 24, color: Colors.white),
     ),
   );
 }
 
-blackHeadingSmall(val) {
+Widget blackHeadingSmall(String val) {
   return Text(
     val,
-    style: TextStyle(fontSize: 20, fontFamily: 'bold', color: Colors.black),
+    style: boldTextStyle.copyWith(fontSize: 20),
   );
 }
 
-blackText(val) {
+Widget blackText(String val) {
   return Text(
     val,
     style: TextStyle(fontSize: 14, color: Colors.black),
   );
 }
 
-boldText(val) {
+Widget boldText(String val) {
   return Text(
     val,
-    style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'bold'),
+    style: boldTextStyle.copyWith(fontSize: 14),
   );
 }
 
-blackBoldText(val) {
+Widget blackBoldText(String val) {
   return Text(
     val,
-    style: TextStyle(fontSize: 18, fontFamily: 'bold', color: Colors.black),
+    style: boldTextStyle.copyWith(fontSize: 18),
   );
 }
 
-centerText(val) {
+Widget centerText(String val) {
   return Text(
     val,
     textAlign: TextAlign.center,
@@ -71,49 +74,49 @@ centerText(val) {
   );
 }
 
-greyBoldText(val) {
+Widget greyBoldText(String val) {
   return Text(
     val,
-    style: TextStyle(fontSize: 15, fontFamily: 'medium', color: Colors.black54),
+    style: mediumTextStyle.copyWith(fontSize: 15),
   );
 }
 
-greyText(val) {
+Widget greyText(String val) {
   return Text(
     val,
     style: TextStyle(fontSize: 14, color: Colors.black54),
   );
 }
 
-greyTextSmall(val) {
+Widget greyTextSmall(String val) {
   return Text(
     val,
     style: TextStyle(fontSize: 12, color: Colors.black54),
   );
 }
 
-smallText(val) {
+Widget smallText(String val) {
   return Text(
     val,
     style: TextStyle(fontSize: 10, color: Colors.black54),
   );
 }
 
-appcolorText(val) {
+Widget appColorText(String val) {
   return Text(
     val,
-    style: TextStyle(fontSize: 12, color: appColor2, fontFamily: 'medium'),
+    style: mediumTextStyle.copyWith(color: appColor2, fontSize: 12),
   );
 }
 
-colorText(val) {
+Widget colorText(String val) {
   return Text(
     val,
-    style: TextStyle(fontSize: 12, color: appColor, fontFamily: 'medium'),
+    style: mediumTextStyle.copyWith(color: appColor, fontSize: 12),
   );
 }
 
-textField(hint, icn) {
+Widget textField(String hint, IconData icn) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8),
     child: TextField(
@@ -124,7 +127,7 @@ textField(hint, icn) {
           size: 18,
           color: Colors.black12,
         ),
-        labelStyle: TextStyle(color: Colors.black54, fontSize: 12),
+        labelStyle: mediumTextStyle.copyWith(fontSize: 12),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: appColor),
         ),
@@ -133,7 +136,7 @@ textField(hint, icn) {
   );
 }
 
-SearchBox() {
+Widget searchBox() {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 20),
     padding: const EdgeInsets.symmetric(horizontal: 16),

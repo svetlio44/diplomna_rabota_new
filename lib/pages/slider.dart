@@ -86,11 +86,11 @@ class _SliderScreenState extends State<SliderScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    MyTextButton(
-                                      onPressed: () {},
-                                      colors: Colors.white,
-                                      text: 'Login',
-                                    ),
+                                    // MyTextButton(
+                                    //   onPressed: () {},
+                                    //   colors: Colors.white,
+                                    //   text: 'Login',
+                                    // ),
                                   ],
                                 ),
                                 Image.asset(
@@ -104,7 +104,7 @@ class _SliderScreenState extends State<SliderScreen> {
                                   padding: EdgeInsets.symmetric(horizontal: 36),
                                   child: Column(
                                     children: [
-                                      centerkHeading(e.name),
+                                      centerHeading(e.name),
                                       SizedBox(height: 10),
                                       centerText(e.detail),
                                     ],
