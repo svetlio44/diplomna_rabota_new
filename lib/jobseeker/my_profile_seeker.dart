@@ -3,17 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diplomna_rabota_new/pages/view_ad.dart';
 
-
-class MyProfile extends StatefulWidget {
+class MyProfile_Seeker extends StatefulWidget {
   static const String id = 'MyProfile';
 
-  const MyProfile({Key? key}) : super(key: key);
+  const MyProfile_Seeker({Key? key}) : super(key: key);
 
   @override
   _MyProfileState createState() => _MyProfileState();
 }
 
-class _MyProfileState extends State<MyProfile> {
+class _MyProfileState extends State<MyProfile_Seeker> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late User? _user;
@@ -83,7 +82,6 @@ class _MyProfileState extends State<MyProfile> {
                       _buildProfileInfo(
                         title: 'Name',
                         value: userData['firstName'] ?? 'Not set',
-
                       ),
                       _buildProfileInfo(
                         title: 'Email',
@@ -110,18 +108,11 @@ class _MyProfileState extends State<MyProfile> {
                         title: 'Change Phone Number',
                         onTap: () => _showPhoneUpdateDialog(userData['phone']),
                       ),
-                      const SizedBox(height: 30),
-                      _buildSectionHeader('My Listings'),
                     ],
                   );
                 },
               ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              _buildUserAdsList(),
-            ]),
           ),
         ],
       ),

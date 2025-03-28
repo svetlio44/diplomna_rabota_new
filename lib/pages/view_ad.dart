@@ -23,54 +23,184 @@ class ViewAd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isNetworkImage = imagePath?.startsWith('http') ?? false;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('View Ad'),
+        title: const Text('Ad Details'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); // Връща назад към предходната страница
-          },
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.pop(context),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text(
-                description,
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Price: $price',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Phone Number: $phoneNumber',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'Email: $email',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(height: 10),
-              imagePath != null && imagePath!.isNotEmpty
-                  ? Image.file(File(imagePath!))
-                  : Text('No image available'),
-            ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).primaryColor,
+                Theme.of(context).primaryColor.withOpacity(0.8),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
         ),
       ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image Section
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                height: 250,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: imagePath != null && imagePath!.isNotEmpty
+                    ? imagePath!.startsWith('assets/')
+                    ? Image.asset(
+                  imagePath!,
+                  fit: BoxFit.cover,
+                )
+                    : (isNetworkImage
+                    ? Image.network(
+                  imagePath!,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      _buildDefaultImage(),
+                )
+                    : Image.file(
+                  File(imagePath!),
+                  fit: BoxFit.cover,
+                ))
+                    : _buildDefaultImage(),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Title and Price
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
+                    ),
+                  ),
+                ),
+                Chip(
+                  backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
+                  label: Text(
+                    '€$price',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Description
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Description',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Contact Info
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Contact Information',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildContactInfo(Icons.phone, phoneNumber),
+                    const SizedBox(height: 12),
+                    _buildContactInfo(Icons.email, email),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      // Removed the floatingActionButton
+    );
+  }
+
+  Widget _buildContactInfo(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.grey[600]),
+        const SizedBox(width: 12),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey[800],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDefaultImage() {
+    return Image.asset(
+      'assets/images/hamalski_uslugi.png',
+      fit: BoxFit.cover,
     );
   }
 }

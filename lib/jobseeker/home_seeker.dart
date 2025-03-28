@@ -4,19 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:diplomna_rabota_new/pages/view_ad.dart';
 import 'package:diplomna_rabota_new/pages/liked_ads.dart';
 import 'package:diplomna_rabota_new/widget/popupMenu.dart';
-import 'package:diplomna_rabota_new/pages/add_ad.dart';
 import '../components/styles.dart';
 
-class Home extends StatefulWidget {
+class Home_Seeker extends StatefulWidget {
   static const String id = 'Home';
 
-  const Home({Key? key}) : super(key: key);
+  const Home_Seeker({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home_Seeker> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<String> likedAdIds = [];
   String _searchQuery = '';
@@ -115,11 +114,6 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, AddAd.id),
-        child: const Icon(Icons.add),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
@@ -233,7 +227,7 @@ class _HomeState extends State<Home> {
       } else {
         likedAdIds.add(adId);
       }
-      _saveLikedAds(); // Save the liked ads immediately
+      _saveLikedAds();
     });
   }
 

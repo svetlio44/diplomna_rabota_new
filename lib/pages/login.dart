@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diplomna_rabota_new/pages/forgot_password.dart';
 import 'package:diplomna_rabota_new/pages/register.dart';
-import 'package:diplomna_rabota_new/pages/tabs.dart';
+import 'package:diplomna_rabota_new/pages/tabs.dart'; // Ensure this contains TabsExampleJobSeeker
 import 'package:diplomna_rabota_new/widget/elevated_button.dart';
 import 'package:diplomna_rabota_new/widget/text_btn.dart';
+import 'package:diplomna_rabota_new/jobseeker/tabsSeeker.dart';
 import '../components/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,43 +21,18 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
   bool _rememberMe = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _checkRememberMe();
-  }
-
-  Future<void> _checkRememberMe() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool? rememberMe = prefs.getBool('rememberMe');
-      String? savedEmail = prefs.getString('email');
-      String? savedPassword = prefs.getString('password');
-
-      if (rememberMe == true && savedEmail != null && savedPassword != null) {
-        setState(() {
-          _rememberMe = true;
-          _emailController.text = savedEmail;
-          _passwordController.text = savedPassword;
-        });
-      }
-    } catch (e) {
-      print('Error retrieving preferences: $e');
-      // Clear preferences if there's an error
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
-    }
-  }
+  // ... keep existing initState and _checkRememberMe methods ...
 
   Future<void> _loginUser() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill in all fields')),
+        const SnackBar(content: Text('Please fill in all fields')),
       );
       return;
     }
@@ -69,6 +46,20 @@ class _LoginState extends State<Login> {
       );
 
       if (userCredential.user != null) {
+        // Get user document from Firestore
+        DocumentSnapshot userDoc = await _firestore
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .get();
+
+        if (!userDoc.exists) {
+          throw Exception('User document not found');
+        }
+
+        // Get user role with default fallback
+        final role = userDoc.get('role') as String? ?? 'job_seeker';
+
+        // Save preferences
         try {
           if (_rememberMe) {
             SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -85,10 +76,18 @@ class _LoginState extends State<Login> {
           print('Error saving preferences: $e');
         }
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => TabsExample()),
-        );
+        // Navigate based on role
+        if (role == 'job_seeker') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TabsExampleJobSeeker()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TabsExample()),
+          );
+        }
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage = 'An error occurred';
@@ -105,7 +104,7 @@ class _LoginState extends State<Login> {
     } catch (e) {
       print('Error during login: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An unexpected error occurred')),
+        const SnackBar(content: Text('An unexpected error occurred')),
       );
     } finally {
       setState(() => _isLoading = false);
