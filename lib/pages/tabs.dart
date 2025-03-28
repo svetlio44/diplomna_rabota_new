@@ -13,8 +13,8 @@ import 'package:diplomna_rabota_new/pages/my_profile.dart';
 import '../components/styles.dart' as style;
 
 class TabsExample extends StatefulWidget {
-  const TabsExample({Key? key}) : super(key: key);
-  static const String id = 'Tabs';
+  final String role;  // Add this
+  const TabsExample({Key? key, required this.role}) : super(key: key); // Update constructor
 
   @override
   _TabsExampleState createState() => _TabsExampleState();

@@ -80,12 +80,12 @@ class _LoginState extends State<Login> {
         if (role == 'job_seeker') {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => TabsExampleJobSeeker()),
+            MaterialPageRoute(builder: (context) => TabsExampleJobSeeker(role: role)),
           );
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => TabsExample()),
+            MaterialPageRoute(builder: (context) => TabsExample(role: role)),
           );
         }
       }

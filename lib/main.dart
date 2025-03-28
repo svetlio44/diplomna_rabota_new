@@ -1,47 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:diplomna_rabota_new/pages/welcome.dart';
-import 'package:diplomna_rabota_new/pages/add_ad.dart';
-import 'package:diplomna_rabota_new/pages/view_ad.dart';
-import 'package:diplomna_rabota_new/pages/edit_ad.dart';
-import 'package:diplomna_rabota_new/pages/ads_list.dart';
-import 'package:diplomna_rabota_new/pages/delete_ad.dart';
-import 'package:diplomna_rabota_new/pages/search_ads.dart';
-import 'package:diplomna_rabota_new/pages/profile.dart';
-import 'package:diplomna_rabota_new/pages/change_password.dart';
 import 'package:diplomna_rabota_new/pages/tabs.dart';
-import '../components/styles.dart';
+import 'package:diplomna_rabota_new/jobseeker/tabsSeeker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
     await Firebase.initializeApp();
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? rememberMe = prefs.getBool('rememberMe');
-    String? email = prefs.getString('email');
-    String? password = prefs.getString('password');
-
-    if (rememberMe == true && email != null && password != null) {
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-      } catch (e) {
-        await prefs.remove('rememberMe');
-        await prefs.remove('email');
-        await prefs.remove('password');
-      }
-    }
+    await _handleAutoLogin();
   } catch (e) {
     print('Error initializing app: $e');
   }
 
   runApp(const MyApp());
+}
+
+Future<void> _handleAutoLogin() async {
+  final prefs = await SharedPreferences.getInstance();
+  final rememberMe = prefs.getBool('rememberMe') ?? false;
+  final email = prefs.getString('email');
+  final password = prefs.getString('password');
+
+  if (rememberMe && email != null && password != null) {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e) {
+      await prefs.remove('rememberMe');
+      await prefs.remove('email');
+      await prefs.remove('password');
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -51,85 +47,72 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MaterialApp(
-            home: Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
+      builder: (context, authSnapshot) {
+        if (authSnapshot.connectionState == ConnectionState.waiting) {
+          return _loadingScreen();
         }
 
-        final isAuthenticated = snapshot.hasData;
-        routeArgsHandler(RouteSettings settings) {
-          switch (settings.name) {
-            case Welcome.id:
-              return _buildPageRoute(const Welcome());
-            case AddAd.id:
-              return _buildPageRoute(const AddAd());
-            case ViewAd.id:
-              if (settings.arguments is! Map<String, dynamic>) {
-                return _buildPageRoute(const Welcome());
-              }
-              final args = settings.arguments as Map<String, dynamic>;
-              return _buildPageRoute(ViewAd(
-                title: args['title'] ?? '',
-                description: args['description'] ?? '',
-                price: args['price'] ?? '',
-                imagePath: args['imagePath'] ?? '',
-                phoneNumber: args['phoneNumber'] ?? '',
-                email: args['email'] ?? '',
-              ));
-            case EditAd.id:
-              if (settings.arguments is! Map<String, dynamic>) {
-                return _buildPageRoute(const Welcome());
-              }
-              final args = settings.arguments as Map<String, dynamic>;
-              return _buildPageRoute(EditAd(
-                title: args['title'] ?? '',
-                description: args['description'] ?? '',
-                price: args['price'] ?? '',
-                imagePath: args['imagePath'] ?? '',
-                phoneNumber: args['phoneNumber'] ?? '',
-                email: args['email'] ?? '',
-              ));
-            case AdsList.id:
-              return _buildPageRoute(const AdsList());
-            case DeleteAd.id:
-              if (settings.arguments is! Map<String, dynamic>) {
-                return _buildPageRoute(const Welcome());
-              }
-              final args = settings.arguments as Map<String, dynamic>;
-              return _buildPageRoute(DeleteAd(
-                title: args['title'] ?? '',
-                description: args['description'] ?? '',
-                price: args['price'] ?? '',
-              ));
-            case SearchAds.id:
-              return _buildPageRoute(const SearchAds());
-            case Profile.id:
-              return _buildPageRoute(const Profile());
-            case ChangePassword.id:
-              return _buildPageRoute(const ChangePassword());
-            default:
-              return _buildPageRoute(const Welcome());
-          }
+        if (!authSnapshot.hasData) {
+          return _unauthenticatedApp();
         }
 
-        return MaterialApp(
-          title: 'Social Network 2',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            fontFamily: "regular",
-            primaryColor: appColor,
-          ),
-          home: isAuthenticated ? TabsExample() : const Welcome(),
-          onGenerateRoute: (settings) => routeArgsHandler(settings),
+        return FutureBuilder<DocumentSnapshot>(
+          future: FirebaseFirestore.instance
+              .collection('users')
+              .doc(authSnapshot.data!.uid)
+              .get(),
+          builder: (context, userSnapshot) {
+            if (userSnapshot.connectionState == ConnectionState.waiting) {
+              return _loadingScreen();
+            }
+
+            if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
+              FirebaseAuth.instance.signOut();
+              return _unauthenticatedApp();
+            }
+
+            final role = userSnapshot.data!.get('role') as String? ?? 'job_seeker';
+
+            return MaterialApp(
+              title: 'Social Network 2',
+              debugShowCheckedModeBanner: false,
+              theme: _appTheme(),
+              home: role == 'job_seeker'
+                  ? TabsExampleJobSeeker(role: role)
+                  : TabsExample(role: role),
+              onGenerateRoute: _generateRoute,
+            );
+          },
         );
       },
     );
+  }
+
+  Widget _loadingScreen() => MaterialApp(
+    home: Scaffold(
+      body: Center(child: CircularProgressIndicator()),
+    ),
+  );
+
+  Widget _unauthenticatedApp() => MaterialApp(
+    home: Welcome(),
+    onGenerateRoute: _generateRoute,
+    theme: _appTheme(),
+  );
+
+  ThemeData _appTheme() => ThemeData(
+    fontFamily: "regular",
+    primaryColor: Colors.blue, // Replace with your actual color
+  );
+
+  Route? _generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case Welcome.id:
+        return _buildPageRoute(const Welcome());
+    // Add other routes here
+      default:
+        return _buildPageRoute(const Welcome());
+    }
   }
 
   PageRouteBuilder _buildPageRoute(Widget page) {

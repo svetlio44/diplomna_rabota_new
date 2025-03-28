@@ -4,20 +4,16 @@ import 'package:diplomna_rabota_new/widget/elevated_button.dart';
 import '../components/styles.dart';
 
 class EditProfile extends StatefulWidget {
+  final String role;
   static const String id = 'EditProfile';
 
-  const EditProfile({Key? key}) : super(key: key);
+  const EditProfile({Key? key, required this.role}) : super(key: key);
 
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,28 +22,28 @@ class _EditProfileState extends State<EditProfile> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.more_horiz, color: Colors.black),
+            icon: const Icon(Icons.more_horiz, color: Colors.black),
           ),
         ],
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black54),
+        iconTheme: const IconThemeData(color: Colors.black54),
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Edit Profile',
           style: TextStyle(color: Colors.black, fontFamily: 'medium'),
         ),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Stack(
                 children: [
                   Container(
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/39.jpg'),
                       radius: 55,
                     ),
@@ -58,7 +54,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: CircleAvatar(
                       radius: 14,
                       backgroundColor: appColorBtn,
-                      child: Icon(
+                      child: const Icon(
                         Icons.edit_outlined,
                         color: Colors.white,
                         size: 18,
@@ -67,18 +63,19 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               textField('Your Name'),
               textField('Your Email'),
               textField('Phone Number'),
               textField('Ads Count'),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               MyElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TabsExample(),
+                      // Use widget.role to access the passed parameter
+                      builder: (context) => TabsExample(role: widget.role),
                     ),
                   );
                 },
@@ -94,11 +91,11 @@ class _EditProfileState extends State<EditProfile> {
 
   Widget textField(String hint) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(
         decoration: InputDecoration(
           labelText: hint,
-          labelStyle: TextStyle(color: Colors.black54, fontSize: 12),
+          labelStyle: const TextStyle(color: Colors.black54, fontSize: 12),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: appColor),
           ),

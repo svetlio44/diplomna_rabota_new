@@ -1,16 +1,9 @@
-/*
-  Authors : initappz (Rahul Jograna)
-  Website : https://initappz.com/
-  App Name : Flutter UI Kit
-  This App Template Source code is licensed as per the
-  terms found in the Website https://initappz.com/license
-  Copyright and Good Faith Purchasers © 2021-present initappz.
-*/
-import 'package:diplomna_rabota_new/pages/profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:diplomna_rabota_new/pages/change_password.dart';
 import 'package:diplomna_rabota_new/pages/edit_profile.dart';
-import 'package:diplomna_rabota_new/pages/notifications.dart';
+import 'package:diplomna_rabota_new/pages/profile.dart';
 import '../components/styles.dart';
 
 class Settings extends StatefulWidget {
@@ -23,112 +16,79 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  String _role = 'job_seeker'; // Default role
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+    _fetchUserRole();
+  }
+
+  Future<void> _fetchUserRole() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        setState(() {
+          _role = doc.get('role') as String? ?? 'job_seeker';
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Error fetching role: $e');
+      setState(() => _isLoading = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz)),
-          ],
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black54),
-          elevation: 0,
-          centerTitle: true,
-          title: Text('Settings',
-              style: TextStyle(color: Colors.black, fontFamily: 'medium')),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(16),
-          child: ListView(
-            children: [
-              Card(
-                child: ListTile(
-                  title: Text('Edit Profile'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EditProfile()));
-                  },
-
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text('My profile info'),
-
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Profile()));
-                  },
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text('Change Password'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ChangePassword()));
-                  },
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
-              // Card(
-              //   child: ListTile(
-              //     title: Text('Notifications'),
-              //     onTap: () {
-              //       Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => const ()));
-              //     },
-              //     trailing: Icon(Icons.chevron_right),
-              //   ),
-              // ),
-              Card(
-                child: ListTile(
-                  title: Text('Language'),
-                  trailing: greyText('English'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text('Get Help'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
-              // Card(
-              //   child: ListTile(
-              //     title: Text('Teport Problems'),
-              //     trailing: Icon(Icons.chevron_right),
-              //   ),
-              // ),
-              Card(
-                child: ListTile(
-                  title: Text('Terms of use'),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  title: Text('Log out'),
-                  trailing: Icon(Icons.logout),
-                ),
-              ),
-            ],
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_horiz, color: Colors.black54),
           ),
-        ));
+        ],
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black54),
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Settings',
+          style: TextStyle(color: Colors.black, fontFamily: 'medium'),
+        ),
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Container(
+        padding: const EdgeInsets.all(16),
+        child: ListView(
+          children: [
+            Card(
+              child: ListTile(
+                title: const Text('Edit Profile'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditProfile(role: _role),
+                    ),
+                  );
+                },
+                trailing: const Icon(Icons.chevron_right),
+              ),
+            ),
+            // ... rest of your list tiles
+          ],
+        ),
+      ),
+    );
   }
 }

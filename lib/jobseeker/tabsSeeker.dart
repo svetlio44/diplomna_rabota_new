@@ -5,8 +5,8 @@ import 'package:diplomna_rabota_new/jobseeker/my_profile_seeker.dart';
 import '../components/styles.dart' as style;
 
 class TabsExampleJobSeeker extends StatefulWidget {
-  const TabsExampleJobSeeker({Key? key}) : super(key: key);
-  static const String id = 'TabsJobSeeker';
+  final String role;  // Add this
+  const TabsExampleJobSeeker({Key? key, required this.role}) : super(key: key);
 
   @override
   _TabsExampleJobSeekerState createState() => _TabsExampleJobSeekerState();
