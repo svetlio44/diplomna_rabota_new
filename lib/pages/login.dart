@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diplomna_rabota_new/pages/forgot_password.dart';
 import 'package:diplomna_rabota_new/pages/register.dart';
-import 'package:diplomna_rabota_new/pages/tabs.dart'; // Ensure this contains TabsExampleJobSeeker
+import 'package:diplomna_rabota_new/pages/tabs.dart';
 import 'package:diplomna_rabota_new/widget/elevated_button.dart';
 import 'package:diplomna_rabota_new/widget/text_btn.dart';
 import 'package:diplomna_rabota_new/jobseeker/tabsSeeker.dart';
@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   bool _isLoading = false;
   bool _rememberMe = false;
 
-  // ... keep existing initState and _checkRememberMe methods ...
+
 
   Future<void> _loginUser() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
